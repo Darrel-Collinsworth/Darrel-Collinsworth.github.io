@@ -287,14 +287,14 @@ var app = (function () {
     			a_entity = element("a-entity");
     			set_custom_element_data(a_box, "position", "0 0.5 0");
     			set_custom_element_data(a_box, "material", "color: yellow;");
-    			add_location(a_box, file, 12, 4, 142);
+    			add_location(a_box, file, 2, 4, 55);
     			set_custom_element_data(a_marker, "preset", "hiro");
-    			add_location(a_marker, file, 11, 2, 113);
+    			add_location(a_marker, file, 1, 2, 26);
     			set_custom_element_data(a_entity, "camera", "");
-    			add_location(a_entity, file, 14, 2, 213);
+    			add_location(a_entity, file, 4, 2, 126);
     			set_custom_element_data(a_scene, "embedded", "");
     			set_custom_element_data(a_scene, "arjs", "");
-    			add_location(a_scene, file, 10, 0, 87);
+    			add_location(a_scene, file, 0, 0, 0);
     		},
 
     		l: function claim(nodes) {
@@ -323,48 +323,11 @@ var app = (function () {
     	return block;
     }
 
-    function instance($$self, $$props, $$invalidate) {
-    	let { name } = $$props;
-
-    	const writable_props = ['name'];
-    	Object.keys($$props).forEach(key => {
-    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<App> was created with unknown prop '${key}'`);
-    	});
-
-    	$$self.$set = $$props => {
-    		if ('name' in $$props) $$invalidate('name', name = $$props.name);
-    	};
-
-    	$$self.$capture_state = () => {
-    		return { name };
-    	};
-
-    	$$self.$inject_state = $$props => {
-    		if ('name' in $$props) $$invalidate('name', name = $$props.name);
-    	};
-
-    	return { name };
-    }
-
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance, create_fragment, safe_not_equal, ["name"]);
+    		init(this, options, null, create_fragment, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "App", options, id: create_fragment.name });
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-    		if (ctx.name === undefined && !('name' in props)) {
-    			console.warn("<App> was created without expected prop 'name'");
-    		}
-    	}
-
-    	get name() {
-    		throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set name(value) {
-    		throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
